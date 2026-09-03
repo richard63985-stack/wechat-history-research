@@ -8,6 +8,10 @@
 *.db
 *.db-*
 *.pdf
+*.xlsx
+/articles/
+/notes/
+node_modules/
 
 # Credentials, browser profiles, and local environments.
 .env

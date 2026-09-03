@@ -10,7 +10,7 @@
 4. 结论化 HTML；
 5. 与 HTML 同版的 PDF。
 
-若用户需要日常检索，再额外提供 CSV、Markdown 或 Obsidian 索引；不要默认制造第二套事实源。
+同时交付 Excel 总览、逐篇 Markdown 与 `index.md` 阅读入口，按 [目录和阅读交付规范](workspace-layout.md) 存放。它们是可再生成的阅读副本，主库仍是结构化底稿；用户额外要求时再提供 CSV 或其他格式。
 
 ## 正文结构
 

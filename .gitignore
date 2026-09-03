@@ -1,0 +1,26 @@
+# Local research and generated deliverables must stay out of this public repo.
+/work/
+/outputs/
+/data/
+/raw/
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.pdf
+
+# Credentials, browser profiles, and local environments.
+.env
+.env.*
+*cookie*
+*Cookie*
+*browser-profile*/
+*chrome-profile*/
+storage-state*.json
+storageState*.json
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db

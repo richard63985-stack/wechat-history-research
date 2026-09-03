@@ -53,7 +53,7 @@
 
 Excel 超链接使用相对 MD 路径，原文 URL 另列明文。Excel、系统关联程序可能提示确认打开本地文件；整包移动后检查链接，而不是绕过安全提示。批注不会自动写回 SQLite。
 
-当前宿主的表格预览不计算 `HYPERLINK`，示例 builder 用 `IFERROR` 显示“打开MD”，由 Excel 打开后执行原生链接。此宿主的 XLSX 导出也可能不保留冻结窗格；必须检查实际导出文件，如缺失则在交付中说明，可在 Excel 的“视图 → 冻结窗格”手动设置，不能仅凭脚本调用宣称已冻结。
+可选 `build_overview.mjs` 示例的已测宿主不在预览中计算 `HYPERLINK`，因此用 `IFERROR` 显示“打开MD”，由 Excel 打开后执行原生链接。该宿主的 XLSX 导出也可能不保留冻结窗格；这不是所有表格工具共有的限制。无论使用哪种工具，都必须检查实际导出文件，如缺失则在交付中说明，可在 Excel 的“视图 → 冻结窗格”手动设置，不能仅凭脚本调用宣称已冻结。
 
 ## 执行
 
@@ -66,13 +66,15 @@ python scripts/export_reading.py --self-check
 
 展示日期默认 UTC+08:00，可用 `--utc-offset` 指定其他固定偏移，不依赖操作系统时区。脚本创建数据库快照、manifest、逐篇 MD、月目录、批次入口和 `reading.json`，**不生成 Excel 或研究报告**。批次入口中的 Excel 链接在下一步完成后才有效。
 
-用所在环境的表格能力将 `reading.json` 生成为 `overview.xlsx`。宿主提供 `@oai/artifact-tool` 时可复用 `scripts/build_overview.mjs`：
+用所在环境已有的表格工具或 XLSX 库，将 `reading.json` 生成为 `overview.xlsx`，遵循上述字段、公式安全、相对链接和验收要求。`reading.json` 是共用输入，不要求某个特定平台或库。
+
+**可选示例**：仅当宿主实际提供 Node.js 和 `@oai/artifact-tool` 时，复用 `scripts/build_overview.mjs`：
 
 ```text
 node build_overview.mjs <批次>/data/reading.json <批次>/overview.xlsx <临时预览目录>
 ```
 
-在宿主提供的运行环境执行：把 builder 复制到本次 `work/tmp` 下的运行目录，按宿主返回的依赖位置建立 `node_modules` 软链接或 Windows junction。不要把该依赖目录放入公开仓库，也不要假定私有包可从 npm 安装。工具缺失时保留已完成的 MD，明确 Excel 尚未交付，按环境审批流程补齐；有表格技能时按其验收要求执行。
+使用此示例时，把 builder 复制到本次 `work/tmp` 下的运行目录，按宿主返回的依赖位置建立 `node_modules` 软链接或 Windows junction。不要把该依赖目录放入公开仓库，也不要假定私有包可从 npm 安装。没有该依赖时直接使用当前环境的其他表格工具，不必安装 Codex；如果没有可用替代工具，保留已完成的 MD，明确 Excel 尚未交付，按环境审批流程补齐。有表格技能时按其验收要求执行。
 
 ## 增量与验收
 
